@@ -39,6 +39,12 @@ steps:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
 
+- task: BuildQualityChecks@6
+  inputs:
+    checkCoverage: true
+    coverageFailOption: 'fixed'
+    coverageType: 'branches'
+    coverageThreshold: '90'
 - task: DotNetCoreCLI@2
   displayName: 'publish'
   inputs:
