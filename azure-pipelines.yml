@@ -31,16 +31,19 @@ steps:
   inputs:
     command: 'test'
     projects: 'CodeCoverage/After/CodeCoverage.sln'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'publish'
   inputs:
     command: publish
     publishWebProjects: false
+    projects: 'CodeCoverage/After/CodeCoverage.sln'
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
-- task: PublishBuildArtifacts@1
+- task: PublishBuildArtifacts@1  
+  displayName: 'publish artifact'
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'CodeCoverage'
