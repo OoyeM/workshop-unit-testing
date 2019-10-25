@@ -31,14 +31,15 @@ steps:
   inputs:
     command: 'test'
     projects: 'CodeCoverage/After/CodeCoverage.sln'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+
 
 - task: DotNetCoreCLI@2
   displayName: 'publish'
   inputs:
     command: publish
     publishWebProjects: false
-    projects: 'CodeCoverage/After/CodeCoverage.sln'
+    projects: 'CodeCoverage/After/CodeCoverage/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
